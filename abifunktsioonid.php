@@ -53,6 +53,14 @@ VALUES (?, ?, ?)");
     $kask->bind_param("sid", $nimetus, $kaubagrupi_id, $hind);
     $kask->execute();
 }
+
+
+function muudaKaup($kauba_id, $nimetus, $kaubagrupi_id, $hind){
+    global $yhendus;
+    $kask=$yhendus->prepare("UPDATE kaubad SET nimetus=?, kaubagrupi_id=?, hind=?  WHERE id=?");
+    $kask->bind_param("sidi", $nimetus, $kaubagrupi_id, $hind, $kauba_id);  $kask->execute();
+}
+
 function kustutaKaup($kauba_id){
 
     global $yhendus;
@@ -64,4 +72,6 @@ function kustutaKaup($kauba_id){
  $kask->execute();
 
  }
+
+
  ?>
