@@ -25,12 +25,17 @@ function kysiKaupadeAndmed($sorttulp="nimetus", $otsisona=""){
     return $hoidla;
 }
 //---------------
-function looRippMenyy($sqllause, $valikunimi){
+function looRippMenyy($sqllause, $valikunimi,$emptyOption){
     global $yhendus;
     $kask=$yhendus->prepare($sqllause);
     $kask->bind_result($id, $sisu);
     $kask->execute();
-    $tulemus="<select name='$valikunimi'>";
+    $tulemus="<select name='$valikunimi' >";
+
+
+    if ($emptyOption){
+        $tulemus.="<option value=''> select kaubagrupp </option>";
+    }
     while($kask->fetch()){
         $tulemus.="<option value='$id'>$sisu</option>";
     }
@@ -47,9 +52,16 @@ function lisaGrupp($grupinimi){
 
 function lisaKaup($nimetus, $kaubagrupi_id, $hind){
     global $yhendus;
+
+    if(empty($nimetus) ||empty($kaubagrupi_id) ||empty($hind)) {
+
+        return "Täita kõik valjad";
+    }
+
+
     $kask=$yhendus->prepare("INSERT INTO  
-kaubad (nimetus, kaubagrupi_id, hind) 
-VALUES (?, ?, ?)");
+    kaubad (nimetus, kaubagrupi_id, hind) 
+                    VALUES (?, ?, ?)");
     $kask->bind_param("sid", $nimetus, $kaubagrupi_id, $hind);
     $kask->execute();
 }
@@ -75,3 +87,6 @@ function kustutaKaup($kauba_id){
 
 
  ?>
+
+
+

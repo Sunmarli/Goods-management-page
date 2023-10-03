@@ -37,29 +37,51 @@ $kaubad=kysiKaupadeAndmed($sorttulp, $otsisona);
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Kaupade leht</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />  </head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <div style="background-color: white;">
+
+</head>
 <body>
-<form action="kaubahaldus.php">
-    <h2>Kauba lisamine</h2>
-    <dl>
-        <dt>Nimetus:</dt>
-        <dd><input type="text" name="nimetus" data-fv-nimetus-message="Empty field" required/></dd>
-        <dt>Kaubagrupp:</dt>
-        <dd><?php
-            echo looRippMenyy("SELECT id, grupinimi FROM kaubagrupid",   "kaubagrupi_id");
+<div class="w3-container custom-div"  >
+    <div class="w3-card-4" >
+<form action="kaubahaldus.php" class="w3-container ">
+    <h2 class="w3-container w3-teal" >Kauba lisamine</h2>
+
+        <label>Nimetus:</label>
+        <input type="text"  class="w3-input w3-border" name="nimetus" required />
+    <label>Kaubagrupp:</label>
+    <br>
+
+        <?php
+            echo looRippMenyy("SELECT id, grupinimi FROM kaubagrupid",   "kaubagrupi_id",true);
             ?>
-        </dd>
-        <dt>Hind:</dt>
-        <dd><input type="text" name="hind" data-fv-hind-message="Empty field" required/></dd>
-    </dl>
+        <br>
+    <br>
+        <label> Hind:</label>
+     <input type="text"  class="w3-input w3-border" name="hind" required />
+
     <input type="submit" name="kaubalisamine" value="Lisa kaup" />
     <h2>Grupi lisamine</h2>
     <input type="text" name="uuegrupinimi" />
     <input type="submit" name="grupilisamine" value="Lisa grupp" />  </form>
-<form action="kaubahaldus.php">
-    <h2>Kaupade loetelu</h2>
-    Otsi: <input type="text" name="otsisona" />
-    <table>
+        <br><br>
+    </div>
+    <br>
+</div>
+
+
+
+
+
+<form action="kaubahaldus.php" class="w3-container">
+    <div class="w3-panel w3-teal">
+        <h2>Kaupade loetelu</h2>
+    </div>
+
+    Otsi: <input type="text" name="otsisona"  />
+    <table class="w3-table w3-bordered w3-hoverable">
         <tr>
             <th>Haldus</th>
             <th><a href="?sort=nimetus">Nimetus</a></th>
@@ -77,8 +99,8 @@ $kaubad=kysiKaupadeAndmed($sorttulp, $otsisona);
                     <td><input type="text" name="nimetus" value="<?=$kaup->nimetus ?>" /></td>  <td><?php
                         echo looRippMenyy("SELECT id, grupinimi FROM kaubagrupid",   "kaubagrupi_id");  ?></td>
                     <td><input type="text" name="hind" value="<?=$kaup->hind ?>" /></td>  <?php else: ?>
-                    <td><a href="kaubahaldus.php?kustutusid=<?=$kaup->id ?>"  onclick="return confirm('Kas ikka soovid kustutada?')">x</a>
-                        <a href="kaubahaldus.php?muutmisid=<?=$kaup->id ?>">m</a>  </td>
+                    <td><a href="kaubahaldus.php?kustutusid=<?=$kaup->id ?>"  onclick="return confirm('Kas ikka soovid kustutada?')"class="w3-button w3-circle w3-red">Delete</a>
+                        <a href="kaubahaldus.php?muutmisid=<?=$kaup->id ?>" class="w3-button w3-circle w3-teal">Modify</a>  </td>
                     <td><?=$kaup->nimetus ?></td>
                     <td><?=$kaup->grupinimi ?></td>
                     <td><?=$kaup->hind ?></td>
@@ -88,5 +110,26 @@ $kaubad=kysiKaupadeAndmed($sorttulp, $otsisona);
     </table>
 </form>
 
+</div>
+</div>
 </body>
 </html>
+<style>
+    input[type="text"] {
+        width: 200px;
+        display: flex;
+
+    }
+
+
+    }
+    .custom-div {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+
+
+
+
+</style>
